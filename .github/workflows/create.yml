@@ -1,0 +1,9 @@
+name: apply -terraform
+on: workflow_dispatch
+jobs:
+  apply:
+    runs-on: self-hosted
+    steps:
+      - run: az-identity login
+      - uses: actions/checkout@v4    # Checkout code
+      - run: ls -l
