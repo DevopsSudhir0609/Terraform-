@@ -1,9 +1,19 @@
-name: apply -terraform
+name: apply-terraform
 on: workflow_dispatch
 jobs:
   apply:
     runs-on: self-hosted
     steps:
-      - run: az-identity login
-      - uses: actions/checkout@v4    # Checkout code
+      # Your existing steps
+      - uses: actions/checkout@v4
       - run: ls -l
+
+      # Secure Azure login (minimal addition)
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}  # Uses your JSON secret
+
+      # Verify Azure access (optional check)
+      - name: Verify Azure access
+        run: az account show --output table
